@@ -7,5 +7,4 @@ app_name = 'foodsite'
 
 urlpatterns = [
     path('', show_main_page, name='index'),
-    path('admin/', admin.site.urls),
 ]
