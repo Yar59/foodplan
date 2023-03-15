@@ -10,5 +10,5 @@ urlpatterns = [
     path('registration/', registration, name='registration'),
     path('lk/', lk, name='lk'),
     path('order/', order, name='order'),
-    path('dish/<dish_id>/', show_dish, name='dish')
+    path('dish/<dish_id>/', show_dish, name='dish'),
 ]
