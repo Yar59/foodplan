@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, password, is_manager=True, **extra_fields)
+        return self._create_user(email, password, is_staff=True, **extra_fields)
 
 
 class Ingredients(models.Model):
@@ -41,7 +41,7 @@ class Ingredients(models.Model):
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('Имя', max_length=250, default='some_user')
     email = models.EmailField('Адрес электронной почты', max_length=50, unique=True)
-    is_manager = models.BooleanField('Является ли менеджером?', default=False)
+    is_staff = models.BooleanField('Является ли менеджером?', default=False)
     is_premium = models.BooleanField('Оплачена премиум подписка?', default=False)
     not_used_ingr = models.ManyToManyField(
         Ingredients,
