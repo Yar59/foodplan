@@ -6,7 +6,7 @@ from .models import *
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
-        'name',
+        'username',
         'email',
     )
     raw_id_fields = ('not_used_ingr',)
