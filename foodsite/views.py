@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
-from .models import Dish
+from .forms import *
+from .models import *
 
 
 def show_main_page(request):
@@ -27,3 +30,9 @@ def show_dish(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id).prefetch_related('ingredients')
 
     return render(request, template_name='card.html', context={})
+
+
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'registration.html'
+    success_url = reverse_lazy('foodsite:auth')
