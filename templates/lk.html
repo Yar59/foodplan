@@ -42,7 +42,9 @@
                         </div>
                         <h3 class="card-title text-center">Tim</h3>
                         <div class="d-block">
-                            <button class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
+                            <a href="{% url 'foodsite:logout' %}">
+                              <button class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
+                            </a>
                         </div>
                     </div>
 
