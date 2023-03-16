@@ -1,6 +1,6 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -14,6 +14,11 @@ def show_main_page(request):
 
 def lk(request):
     return render(request, template_name='lk.html', context={})
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('foodsite:index')
 
 
 def order(request):
@@ -30,6 +35,11 @@ class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'registration.html'
     success_url = reverse_lazy('foodsite:auth')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('foodsite:lk')
 
 
 class LoginUser(LoginView):
