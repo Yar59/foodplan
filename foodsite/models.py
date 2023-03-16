@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from multiselectfield import MultiSelectField
 
 
 class UserManager(BaseUserManager):
@@ -47,7 +48,7 @@ class Ingredients(models.Model):
     measure = models.CharField('Единица измерения', max_length=3, choices=CHOICES)
     allergen = models.CharField('Входит в группу алергенов',
                                 max_length=2, choices=ALLERGEN,
-                                blank=True, null=True)
+                                blank=True)
 
     def __str__(self):
         return self.title
@@ -67,10 +68,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     tarif = models.ForeignKey(Tarif, verbose_name='Оплаченный тариф',
                               related_name='users',
                               on_delete=models.PROTECT, null=True, blank=True)
-    preferred_dishes = models.CharField('Предпочитаемые блюда',
+    preferred_dishes = MultiSelectField('Предпочитаемые блюда',
                                         max_length=4, choices=PRODUCT_GROUP,
                                         blank=True, null=True)
-    allergy = models.CharField('Алергия на:',
+    allergy = MultiSelectField('Алергия на:',
                                max_length=2, choices=ALLERGEN,
                                blank=True, null=True)
     USERNAME_FIELD = 'email'
@@ -90,10 +91,10 @@ class Dish(models.Model):
         related_name='dishes',
         verbose_name='Какие ингредиенты используются')
     price = models.FloatField('Ориентировочная цена в руб. за блюдо', default=0)
-    group_food = models.CharField('Входит в группу',
+    group_food = MultiSelectField('Входит в группу',
                                   max_length=4, choices=PRODUCT_GROUP,
                                   blank=True, null=True)
-    in_menu = models.CharField('Входит в меню',
+    in_menu = MultiSelectField('Входит в меню',
                                max_length=2, choices=MENU,
                                blank=True, null=True)
     likes = models.ManyToManyField(
