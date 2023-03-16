@@ -27,17 +27,27 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, is_staff=True, **extra_fields)
 
 
-PRODUCT_GROUP = [('mt', 'meet'), ('fs', 'fish'),
-                 ('vt', 'vegetable'), ('fr', 'fruit'),
-                 ('vegt', 'vegetarian'), ('veg', 'vegan'),
-                 ('gf', 'gluten_free'), ('eco', 'eco')]
+PRODUCT_GROUP = [('mt', 'Мясо'), ('fs', 'Рыба'),
+                 ('vt', 'Овощи'), ('fr', 'Фрукты'),
+                 ('vegt', 'Вегетарианское'), ('veg', 'Веганское'),
+                 ('gf', 'Без глютена'), ('eco', 'ЭКО')]
+
+ALLERGEN = [('fs', 'Рыба и морепродукты'), ('mt', 'Мясо'),
+            ('cl', 'Зерновые'), ('hn', 'Продукты пчеловодства'),
+            ('nt', 'Орехи и бобовые'), ('mk', 'Молочные продукты')]
+
+MENU = [('cl', 'Классическое'), ('lc', 'Низкоуглеводное'),
+        ('vg', 'Вегетарианское'), ('kt', 'Кето')]
 
 
 class Ingredients(models.Model):
     title = models.CharField('Наименование', max_length=100, unique=True)
-    CHOICES = [('kg', 'kilo'), ('g', 'gramm'),
-               ('cm', 'centimeter'), ('pс', 'piece')]
+    CHOICES = [('kg', 'килограмм'), ('g', 'грамм'),
+               ('cm', 'сантиметр'), ('pс', 'штука')]
     measure = models.CharField('Единица измерения', max_length=3, choices=CHOICES)
+    allergen = models.CharField('Входит в группу алергенов',
+                                max_length=2, choices=ALLERGEN,
+                                blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -58,8 +68,11 @@ class User(AbstractBaseUser, PermissionsMixin):
                               related_name='users',
                               on_delete=models.PROTECT, null=True, blank=True)
     preferred_dishes = models.CharField('Предпочитаемые блюда',
-                                        max_length=4, choices=PRODUCT_GROUP)
-
+                                        max_length=4, choices=PRODUCT_GROUP,
+                                        blank=True, null=True)
+    allergy = models.CharField('Алергия на:',
+                               max_length=2, choices=ALLERGEN,
+                               blank=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -77,8 +90,12 @@ class Dish(models.Model):
         related_name='dishes',
         verbose_name='Какие ингредиенты используются')
     price = models.FloatField('Ориентировочная цена в руб. за блюдо', default=0)
-    group = models.CharField('Предпочитаемые блюда',
-                             max_length=4, choices=PRODUCT_GROUP)
+    group_food = models.CharField('Входит в группу',
+                                  max_length=4, choices=PRODUCT_GROUP,
+                                  blank=True, null=True)
+    in_menu = models.CharField('Входит в меню',
+                               max_length=2, choices=MENU,
+                               blank=True, null=True)
     likes = models.ManyToManyField(
         User,
         related_name='liked_dish',
