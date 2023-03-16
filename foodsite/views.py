@@ -32,10 +32,12 @@ def logout_user(request):
     return redirect('foodsite:index')
 
 
+@login_required
 def order(request):
     return render(request, template_name='order.html', context={})
 
 
+@login_required
 def show_dish(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id).prefetch_related('ingredients')
 
@@ -50,7 +52,7 @@ class RegisterUser(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('foodsite:lk')
+        return redirect('foodsite:order')
 
 
 class LoginUser(LoginView):
