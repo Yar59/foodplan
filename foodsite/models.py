@@ -71,6 +71,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     preferred_dishes = MultiSelectField('Предпочитаемые блюда',
                                         max_length=4, choices=PRODUCT_GROUP,
                                         blank=True, null=True)
+    preferred_menu = MultiSelectField('Предпочитаемое меню',
+                                        max_length=2, choices=MENU,
+                                        blank=True, null=True)
     allergy = MultiSelectField('Алергия на:',
                                max_length=2, choices=ALLERGEN,
                                blank=True, null=True)
