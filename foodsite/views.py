@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -8,14 +10,6 @@ from .models import *
 
 def show_main_page(request):
     return render(request, template_name='index.html', context={})
-
-
-def auth(request):
-    return render(request, template_name='auth.html', context={})
-
-
-def registration(request):
-    return render(request, template_name='registration.html', context={})
 
 
 def lk(request):
@@ -36,3 +30,8 @@ class RegisterUser(CreateView):
     form_class = RegisterUserForm
     template_name = 'registration.html'
     success_url = reverse_lazy('foodsite:auth')
+
+
+class LoginUser(LoginView):
+    form_class = LoginUserForm
+    template_name = 'auth.html'
