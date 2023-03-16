@@ -9,7 +9,6 @@ class UserAdmin(admin.ModelAdmin):
         'username',
         'email',
     )
-    raw_id_fields = ('not_used_ingr',)
 
 
 @admin.register(Dish)
