@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.contrib.auth import logout, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -12,8 +14,17 @@ def show_main_page(request):
     return render(request, template_name='index.html', context={})
 
 
+@login_required
 def lk(request):
-    return render(request, template_name='lk.html', context={})
+    if request.method == 'POST':
+        user_form = UserProfileForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Ваш профиль успешно обновлен.')
+            return redirect('foodsite:lk')
+    else:
+        user_form = UserProfileForm(instance=request.user)
+    return render(request, template_name='lk.html', context={'user_form': user_form})
 
 
 def logout_user(request):

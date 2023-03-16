@@ -40,7 +40,7 @@
                             <span class="badge rounded-circle position-absolute bottom-0 end-0 foodplan__bg_green avatar__plus"><a href="#"
                                     class="link-dark text-decoration-none align-middle">+</a></span>
                         </div>
-                        <h3 class="card-title text-center">Tim</h3>
+                        <h3 class="card-title text-center">{{ request.user.username }}</h3>
                         <div class="d-block">
                             <a href="{% url 'foodsite:logout' %}">
                               <button class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
@@ -60,33 +60,23 @@
                             </ul>
                             <div class="tab-content mt-2">
                                 <div class="tab-pane fade show active" id="data">
-                                    <form action="">
+                                    <div class="form-error">{{ form.non_field_errors }}</div>
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                      {% for f in user_form %}
                                         <div class="mb-3">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <label for="exampleInputEmail1" class="form-label">Имя</label>
-                                                <small><a href="#" class="link-dark foodplan_green">изменить</a></small>
-                                            </div>
-                                        
-                                            <input type="text" class="form-control" id="name">
+                                            <label for="{{ f.id_for_label }}" class="form-label">{{f.label}}</label>
+                                            {% if f.label == 'Имя'%}
+                                              <small><a onclick="EditName()" href="javascript:void(0);" class="link-dark foodplan_green">изменить</a></small>
+                                            {% elif f.label == 'Пароль' %}
+                                              <small><a onclick="EditPassword()" href="javascript:void(0);" class="link-dark foodplan_green">изменить</a></small>
+                                            {% endif %}
+                                            {{ f }}
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                                                <small><a href="#" class="link-dark foodplan_green">изменить</a></small>
-                                            </div>
-                                        
-                                            <input type="password" class="form-control" id="password">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="exampleInputPassword1" class="form-label">Подтверждение пароля</label>
-                                            <input type="password" class="form-control" id="PasswordConfirm">
-                                        </div>
+                                        <div class="form-error">{{ f.errors }}</div>
+                                      {% endfor %}
                                         <div class="d-block">
-                                            <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Сохранить
+                                            <button onclick="EnableAll()" type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Сохранить
                                                 изменения</button>
                                         </div>
                                     </form>
@@ -160,4 +150,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+    <script>
+      function EditName(){
+          document.getElementById("username").disabled = false;
+          document.getElementById("password1").disabled = false;
+          document.getElementById("password2").disabled = false;
+      }
+      function EditPassword(){
+          document.getElementById("password1").disabled = false;
+          document.getElementById("password2").disabled = false;
+      }
+      function EnableAll(){
+          document.getElementById("email").disabled = false;
+          document.getElementById("username").disabled = false;
+      }
+    </script>
 </body>
