@@ -11,7 +11,8 @@ from .models import *
 
 
 def show_main_page(request):
-    return render(request, template_name='index.html', context={})
+    dishes = Dish.objects.all()[:3]
+    return render(request, template_name='index.html', context={'dishes': dishes})
 
 
 @login_required
@@ -34,14 +35,17 @@ def logout_user(request):
 
 @login_required
 def order(request):
+    context = request.GET.get('menu')
+    print(context)
     return render(request, template_name='order.html', context={})
 
 
 @login_required
 def show_dish(request, dish_id):
-    dish = get_object_or_404(Dish, id=dish_id).prefetch_related('ingredients')
-
-    return render(request, template_name='card.html', context={})
+    dish = get_object_or_404(Dish, id=dish_id)
+    ingredients_dish = dish.ingredients.all()
+    return render(request, template_name='card.html', context={'dish':dish,
+                                                               'ingredients_dish':ingredients_dish})
 
 
 class RegisterUser(CreateView):
