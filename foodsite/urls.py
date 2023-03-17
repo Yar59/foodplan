@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import show_main_page, lk, order, show_dish, logout_user, RegisterUser, LoginUser
+from .views import show_main_page, lk, order, show_dish, logout_user,show_menu, RegisterUser, LoginUser
 
 app_name = 'foodsite'
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('lk/', lk, name='lk'),
     path('order/', order, name='order'),
     path('dish/<dish_id>/', show_dish, name='dish'),
+    path('menu/', show_menu, name='menu')
 ]
