@@ -17,3 +17,4 @@ class DishAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Ingredients)
+admin.site.register(Tarif)

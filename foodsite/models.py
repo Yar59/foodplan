@@ -55,6 +55,17 @@ class Ingredients(models.Model):
 
 
 class Tarif(models.Model):
+    preferred_menu = models.CharField('Предпочитаемое меню',
+                                      max_length=2, choices=MENU,
+                                      blank=True, null=True)
+    allergy = MultiSelectField('Алергия на:',
+                               max_length=2, choices=ALLERGEN,
+                               blank=True, null=True)
+    TERM = [('1', '1 месяц'), ('3', '3 месяца'),
+               ('6', '6 месяцев'), ('12', '12 месяцев')]
+    duration = models.CharField('Длительность подписки',
+                                      max_length=2, choices=TERM,
+                                      default='1 месяц')
     breakfast = models.BooleanField('Включен ли завтрак?')
     lunch = models.BooleanField('Включен ли обед?')
     dinner = models.BooleanField('Включен ли ужин?')
@@ -71,12 +82,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     preferred_dishes = MultiSelectField('Предпочитаемые блюда',
                                         max_length=4, choices=PRODUCT_GROUP,
                                         blank=True, null=True)
-    preferred_menu = MultiSelectField('Предпочитаемое меню',
-                                        max_length=2, choices=MENU,
-                                        blank=True, null=True)
-    allergy = MultiSelectField('Алергия на:',
-                               max_length=2, choices=ALLERGEN,
-                               blank=True, null=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
