@@ -37,11 +37,15 @@ def order(request):
     return render(request, template_name='order.html', context={})
 
 
-@login_required
 def show_dish(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id).prefetch_related('ingredients')
 
     return render(request, template_name='card.html', context={})
+
+
+@login_required
+def show_menu(request):
+    return render(request, template_name='menu.html', context={})
 
 
 class RegisterUser(CreateView):
