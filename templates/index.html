@@ -99,7 +99,6 @@
                                 </div>
                             </div>
                             {% for dish in dishes %}
-
                               <div class="carousel-item">
                                   <img src="{{dish.image.url}}" class="d-block w-100" alt="...">
                                 <a href="{% url 'foodsite:dish' dish.id  %}" class="stretched-link"></a>
@@ -108,7 +107,6 @@
                                   <h2><b>{{dish.title}}</b></h2>
                                 </div>
                               </div>
-
                             {% endfor %}
                         </div>
                         <button class="carousel-control-prev carousel__button_prev" type="button" data-bs-target="#carousel1"

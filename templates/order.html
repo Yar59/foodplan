@@ -67,7 +67,7 @@
                         <tr>
                             <th scope="row" class="text-start">Срок</th>
                             <td>
-                                <select class="form-select">
+                                <select class="form-select" id="term">
                                     <option value="0" selected>1 мес.</option>
                                     <option value="1">3 мес.</option>
                                     <option value="2">6 мес.</option>
@@ -187,17 +187,23 @@
         <script>
         $('.img_selected').click(function(e) {
       sessionStorage.setItem("menu", $(this).text())
-
 })
+    	$("#term").click(function(e) {
+		sessionStorage.setItem("term", $(this).val())
+	})
+
 $(document).ready(function () {
     $("button[form=orders]").click(function (event) {
                $.ajax({
             url: "{% url 'foodsite:order' %}",
             type: "GET",
-            data: {menu: sessionStorage.getItem('menu'),},
+            data: {menu: sessionStorage.getItem('menu'),
+                   term: sessionStorage.getItem('term'),
+
+            },
             success: function (data) {
                 console.log();
-                alert(sessionStorage.getItem('menu'))
+                alert(sessionStorage.getItem('term'))
 
             }
         }); // end ajax

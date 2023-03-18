@@ -35,7 +35,7 @@ def logout_user(request):
 
 @login_required
 def order(request):
-    context = request.GET.get('menu')
+    context = request.GET.get('term')
     print(context)
     return render(request, template_name='order.html', context={})
 
