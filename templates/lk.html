@@ -75,10 +75,10 @@
                                         </div>
                                         <div class="form-error">{{ f.errors }}</div>
                                       {% endfor %}
-                                        <div class="d-block">
-                                            <button onclick="EnableAll()" type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Сохранить
-                                                изменения</button>
-                                        </div>
+                                      <div class="d-block">
+                                          <button onclick="EnableAll()" type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Сохранить
+                                              изменения</button>
+                                      </div>
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="menu">
@@ -88,38 +88,46 @@
                                         </div>
                                         <div class="col-10 col-md-10">
                                             <div class="row">
-                                                <div class="col-12">
-                                                    <h2>Название подписки</h2>
-                                                </div>
-                                                <div class="col-md-12 col-lg-9">
-                                                    <h6>Описание подписки Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius saepe ea nobis necessitatibus
+                                                {% if tariff %}
+                                                  <div class="col-12">
+                                                      <a href="{% url 'foodsite:menu' %}" style="text-decoration: none; color: grey;"><h2>Ваше меню</h2></a>
+                                                  </div>
+                                                  <div class="col-md-12 col-lg-9">
+                                                    <h6>
+                                                      Описание подписки Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius saepe ea nobis necessitatibus
                                                         consectetur rem! Eligendi assumenda facere sint quibusdam dolorem quasi doloribus nemo, temporibus molestiae
                                                         distinctio cum laboriosam sed. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius saepe ea nobis
                                                         necessitatibus consectetur rem! Eligendi
                                                         assumenda facere sint quibusdam dolorem quasi doloribus nemo, temporibus molestiae distinctio cum laboriosam
-                                                        sed.</h6>
-                                                </div>
-                                                <div class="col-md-12 col-lg-3 text-muted d-flex flex-column justify-content-between">
+                                                        sed.
+                                                    </h6>
+                                                  </div>
+                                                  <div class="col-md-12 col-lg-3 text-muted d-flex flex-column justify-content-between">
                                                     <div class="d-flex flex-row justify-content-between">
-                                                        <small>Персоны: </small><small>3</small>
+                                                        <small>Персоны: </small><small>{{ tariff.persons }}</small>
                                                     </div>
                                                     <div class="d-flex flex-row justify-content-between">
-                                                        <small>Аллергии: </small><small>нет</small>
+                                                        <small>Аллергии: </small>
+                                                        <small>{{ tariff.get_allergy_display }} </small>
                                                     </div>
                                                     <div class="d-flex flex-row justify-content-between">
                                                         <small>Калории: </small><small>1400</small>
                                                     </div>
                                                     <div class="d-flex flex-row justify-content-between">
-                                                        <small>Кол-во приёмов пищи: </small><small>4</small>
+                                                        <small>Кол-во приёмов пищи: </small><small>{{ tariff.dinner|add:tariff.breakfast|add:tariff.lunch|add:tariff.dessert }}</small>
                                                     </div>
-                                                    
-                                                </div>
+                                                  </div>
+                                                {% else %}
+                                                  <div class="col-12">
+                                                    <a href="{% url 'foodsite:order' %}" style="text-decoration: none; color: grey;"><h2>У Вас пока нет подписки</h2></a>
+                                                    <a href="{% url 'foodsite:order' %}"style="text-decoration: none; color: orange;"><p>Оформить подписку</p> </a>
+                                                  </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                     </div>
                 </div>
             </div>

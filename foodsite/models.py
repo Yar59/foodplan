@@ -66,6 +66,7 @@ class Tarif(models.Model):
     duration = models.CharField('Длительность подписки',
                                       max_length=2, choices=TERM,
                                       default='1 месяц')
+    persons = models.PositiveIntegerField('Количество персон', default=1)
     breakfast = models.BooleanField('Включен ли завтрак?')
     lunch = models.BooleanField('Включен ли обед?')
     dinner = models.BooleanField('Включен ли ужин?')
