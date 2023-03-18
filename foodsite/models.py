@@ -46,9 +46,14 @@ class Ingredients(models.Model):
     CHOICES = [('kg', 'килограмм'), ('g', 'грамм'),
                ('cm', 'сантиметр'), ('pс', 'штука')]
     measure = models.CharField('Единица измерения', max_length=3, choices=CHOICES)
+    quantity = models.FloatField('Количество', default=1.0)
     allergen = models.CharField('Входит в группу алергенов',
                                 max_length=2, choices=ALLERGEN,
                                 blank=True)
+
+    class Meta:
+        verbose_name = "Ингридиент"
+        verbose_name_plural = "Ингридиенты"
 
     def __str__(self):
         return self.title
@@ -59,17 +64,22 @@ class Tarif(models.Model):
                                       max_length=2, choices=MENU,
                                       blank=True, null=True)
     allergy = MultiSelectField('Алергия на:',
-                               max_length=2, choices=ALLERGEN,
+                               max_length=12, choices=ALLERGEN,
                                blank=True, null=True)
     TERM = [('1', '1 месяц'), ('3', '3 месяца'),
                ('6', '6 месяцев'), ('12', '12 месяцев')]
     duration = models.CharField('Длительность подписки',
                                       max_length=2, choices=TERM,
                                       default='1 месяц')
+    persons = models.PositiveIntegerField('Количество персон', default=1)
     breakfast = models.BooleanField('Включен ли завтрак?')
     lunch = models.BooleanField('Включен ли обед?')
     dinner = models.BooleanField('Включен ли ужин?')
     dessert = models.BooleanField('Включен ли десерт?')
+
+    class Meta:
+        verbose_name = "Тариф"
+        verbose_name_plural = "Тарифы"
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -80,13 +90,17 @@ class User(AbstractBaseUser, PermissionsMixin):
                               related_name='users',
                               on_delete=models.PROTECT, null=True, blank=True)
     preferred_dishes = MultiSelectField('Предпочитаемые блюда',
-                                        max_length=4, choices=PRODUCT_GROUP,
+                                        max_length=14, choices=PRODUCT_GROUP,
                                         blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    class Meta:
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
 
     def __str__(self):
         return self.username
@@ -100,11 +114,12 @@ class Dish(models.Model):
         related_name='dishes',
         verbose_name='Какие ингредиенты используются')
     price = models.FloatField('Ориентировочная цена в руб. за блюдо', default=0)
+    calories = models.FloatField('Калорийность ккал', default=1000)
     group_food = MultiSelectField('Входит в группу',
-                                  max_length=4, choices=PRODUCT_GROUP,
+                                  max_length=15, choices=PRODUCT_GROUP,
                                   blank=True, null=True)
     in_menu = MultiSelectField('Входит в меню',
-                               max_length=2, choices=MENU,
+                               max_length=8, choices=MENU,
                                blank=True, null=True)
     likes = models.ManyToManyField(
         User,
@@ -116,6 +131,10 @@ class Dish(models.Model):
         related_name='disliked_dish',
         verbose_name='Кто дизлайкнул',
         blank=True)
+
+    class Meta:
+        verbose_name = "Блюдо"
+        verbose_name_plural = "Блюда"
 
     def __str__(self):
         return self.title

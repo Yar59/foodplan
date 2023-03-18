@@ -17,6 +17,7 @@ def show_main_page(request):
 
 @login_required
 def lk(request):
+    tariff = request.user.tarif
     if request.method == 'POST':
         user_form = UserProfileForm(request.POST, instance=request.user)
         if user_form.is_valid():
@@ -25,7 +26,7 @@ def lk(request):
             return redirect('foodsite:lk')
     else:
         user_form = UserProfileForm(instance=request.user)
-    return render(request, template_name='lk.html', context={'user_form': user_form})
+    return render(request, template_name='lk.html', context={'user_form': user_form, 'tariff': tariff})
 
 
 def logout_user(request):
