@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.shortcuts import HttpResponseRedirect
 
 from .forms import *
 from .models import *
@@ -35,8 +36,24 @@ def logout_user(request):
 
 @login_required
 def order(request):
-    context = request.GET.get('term')
-    print(context)
+    if request.method == 'POST':
+        preferred_menu = request.POST.get('menu')
+        term = request.POST.get('term')
+        breakfast = request.POST.get('breakfast')
+        lunch = request.POST.get('lunch')
+        dinner = request.POST.get('dinner')
+        dessert = request.POST.get('dessert')
+        allergy = request.POST.get('allergy')
+        tarif = Tarif.objects.create(
+            preferred_menu=preferred_menu,
+            allergy=allergy.split('|'),
+            duration=term.split()[0],
+            breakfast=breakfast,
+            lunch=lunch,
+            dinner=dinner,
+            dessert=dessert,
+        )
+        return HttpResponseRedirect("/")
     return render(request, template_name='order.html', context={})
 
 
