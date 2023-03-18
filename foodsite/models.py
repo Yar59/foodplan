@@ -50,6 +50,10 @@ class Ingredients(models.Model):
                                 max_length=2, choices=ALLERGEN,
                                 blank=True)
 
+    class Meta:
+        verbose_name = "Ингридиент"
+        verbose_name_plural = "Ингридиенты"
+
     def __str__(self):
         return self.title
 
@@ -72,6 +76,10 @@ class Tarif(models.Model):
     dinner = models.BooleanField('Включен ли ужин?')
     dessert = models.BooleanField('Включен ли десерт?')
 
+    class Meta:
+        verbose_name = "Тариф"
+        verbose_name_plural = "Тарифы"
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('Имя', max_length=250, default='some_user')
@@ -88,6 +96,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    class Meta:
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
 
     def __str__(self):
         return self.username
@@ -117,6 +129,10 @@ class Dish(models.Model):
         related_name='disliked_dish',
         verbose_name='Кто дизлайкнул',
         blank=True)
+
+    class Meta:
+        verbose_name = "Блюдо"
+        verbose_name_plural = "Блюда"
 
     def __str__(self):
         return self.title
