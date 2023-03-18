@@ -99,17 +99,16 @@
                                 </div>
                             </div>
                             {% for dish in dishes %}
-                            <div class="carousel-item">
 
-                                <img src="{{dish.image.url}}" class="d-block w-100" alt="...">
-
-                             <div class="card-img-overlay text-white text-center carousel-item__gradient">
-                                    <h5><b>Интересно, просто и супер вкусно</b></h5>
-                                 <a href="{% url 'foodsite:dish' dish.id  %}">
-                                    <h2><b>{{dish.title}}</b></h2>
-                                     </a>
+                              <div class="carousel-item">
+                                  <img src="{{dish.image.url}}" class="d-block w-100" alt="...">
+                                <a href="{% url 'foodsite:dish' dish.id  %}" class="stretched-link"></a>
+                                <div class="card-img-overlay text-white text-center carousel-item__gradient">
+                                  <h5><b>Интересно, просто и супер вкусно</b></h5>
+                                  <h2><b>{{dish.title}}</b></h2>
                                 </div>
-                            </div>
+                              </div>
+
                             {% endfor %}
                         </div>
                         <button class="carousel-control-prev carousel__button_prev" type="button" data-bs-target="#carousel1"
