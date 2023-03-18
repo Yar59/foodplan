@@ -114,6 +114,7 @@ class Dish(models.Model):
         related_name='dishes',
         verbose_name='Какие ингредиенты используются')
     price = models.FloatField('Ориентировочная цена в руб. за блюдо', default=0)
+    calories = models.FloatField('Калорийность ккал', default=1000)
     group_food = MultiSelectField('Входит в группу',
                                   max_length=15, choices=PRODUCT_GROUP,
                                   blank=True, null=True)
