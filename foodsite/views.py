@@ -18,7 +18,6 @@ def show_main_page(request):
 @login_required
 def lk(request):
     tariff = request.user.tarif
-    print(tariff)
     if request.method == 'POST':
         user_form = UserProfileForm(request.POST, instance=request.user)
         if user_form.is_valid():
