@@ -46,7 +46,7 @@ class Ingredients(models.Model):
     CHOICES = [('kg', 'килограмм'), ('g', 'грамм'),
                ('cm', 'сантиметр'), ('pс', 'штука')]
     measure = models.CharField('Единица измерения', max_length=3, choices=CHOICES)
-    quantity = models.FloatField('Количество', default=1)
+    quantity = models.FloatField('Количество', default=1.0)
     allergen = models.CharField('Входит в группу алергенов',
                                 max_length=2, choices=ALLERGEN,
                                 blank=True)
@@ -115,7 +115,7 @@ class Dish(models.Model):
         verbose_name='Какие ингредиенты используются')
     price = models.FloatField('Ориентировочная цена в руб. за блюдо', default=0)
     group_food = MultiSelectField('Входит в группу',
-                                  max_length=8, choices=PRODUCT_GROUP,
+                                  max_length=15, choices=PRODUCT_GROUP,
                                   blank=True, null=True)
     in_menu = MultiSelectField('Входит в меню',
                                max_length=8, choices=MENU,
