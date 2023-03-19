@@ -119,7 +119,7 @@ class Dish(models.Model):
                                   max_length=15, choices=PRODUCT_GROUP,
                                   blank=True, null=True)
     in_menu = MultiSelectField('Входит в меню',
-                               max_length=8, choices=MENU,
+                               max_length=11, choices=MENU,
                                blank=True, null=True)
     likes = models.ManyToManyField(
         User,
