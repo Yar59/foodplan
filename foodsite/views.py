@@ -11,7 +11,7 @@ from .models import *
 
 
 def show_main_page(request):
-    dishes = Dish.objects.all()[:3]
+    dishes = Dish.objects.exclude(image='')[:3]
     return render(request, template_name='index.html', context={'dishes': dishes})
 
 
