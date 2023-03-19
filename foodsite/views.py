@@ -69,7 +69,7 @@ def show_dish(request, dish_id):
 
 @login_required
 def show_menu(request):
-    user = User.objects.first()  # Есть какой-то пользователь
+    user = User.objects.get(id=request.user.id)  # Есть какой-то пользователь
     tarif = user.tarif  # Получаем тариф пользователя
     allergy = tarif.allergy  # Получаем Список алергий пользователя
 
