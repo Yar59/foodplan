@@ -73,7 +73,7 @@ def show_menu(request):
     tarif = user.tarif  # Получаем тариф пользователя
     allergy = tarif.allergy  # Получаем Список алергий пользователя
 
-    dishes = Dish.objects.exclude(ingredients__allergen__in=allergy)  # Список блюд без алергенов пользователя
+    dishes = Dish.objects.exclude(ingredients__allergen__in=list(allergy))  # Список блюд без алергенов пользователя
     return render(request, template_name='menu.html', context={})
 
 
