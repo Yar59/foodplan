@@ -69,6 +69,11 @@ def show_dish(request, dish_id):
 
 @login_required
 def show_menu(request):
+    user = User.objects.first()  # Есть какой-то пользователь
+    tarif = user.tarif  # Получаем тариф пользователя
+    allergy = tarif.allergy  # Получаем Список алергий пользователя
+
+    dishes = Dish.objects.exclude(ingredients__allergen__in=allergy)  # Список блюд без алергенов пользователя
     return render(request, template_name='menu.html', context={})
 
 
