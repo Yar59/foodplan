@@ -5,9 +5,9 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from django.shortcuts import HttpResponseRedirect
 from .forms import *
 from .models import *
+from django.shortcuts import render, HttpResponse
 
 
 def show_main_page(request):
@@ -53,10 +53,10 @@ def order(request):
             dinner=dinner,
             dessert=dessert,
         )
-        #print(request.user.id, term)
         user = User.objects.get(pk=request.user.id)
         user.tarif = tarif
         user.save()
+        return HttpResponse(f"Подписка оформлена")
     return render(request, template_name='order.html', context={})
 
 
