@@ -2,12 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from more_itertools import chunked
+
 from .forms import *
 from .models import *
-from django.shortcuts import render, HttpResponse
 
 
 def show_main_page(request):
@@ -63,18 +64,19 @@ def order(request):
 def show_dish(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id)
     ingredients_dish = dish.ingredients.all()
-    return render(request, template_name='card.html', context={'dish':dish,
-                                                               'ingredients_dish':ingredients_dish})
+    return render(request, template_name='card.html', context={'dish': dish,
+                                                               'ingredients_dish': ingredients_dish})
 
 
 @login_required
 def show_menu(request):
-    user = User.objects.get(id=request.user.id)  # Есть какой-то пользователь
-    tarif = user.tarif  # Получаем тариф пользователя
-    allergy = tarif.allergy  # Получаем Список алергий пользователя
-
-    dishes = Dish.objects.exclude(ingredients__allergen__in=list(allergy))  # Список блюд без алергенов пользователя
-    return render(request, template_name='menu.html', context={})
+    user = request.user
+    tariff = user.tarif
+    allergy = tariff.allergy
+    dishes = Dish.objects.exclude(ingredients__allergen__in=list(allergy))
+    dishes_per_page = len([tariff.dinner, tariff.breakfast, tariff.lunch, tariff.dessert])
+    pages = chunked(dishes, dishes_per_page)
+    return render(request, template_name='menu.html', context={'pages': pages})
 
 
 class RegisterUser(CreateView):
