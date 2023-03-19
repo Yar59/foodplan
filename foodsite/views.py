@@ -73,9 +73,11 @@ def show_menu(request):
     user = request.user
     tariff = user.tarif
     allergy = tariff.allergy
-    dishes = Dish.objects.exclude(ingredients__allergen__in=list(allergy))
-    dishes_per_page = len([tariff.dinner, tariff.breakfast, tariff.lunch, tariff.dessert])
-    pages = chunked(dishes, dishes_per_page)
+    dishes = Dish.objects.exclude(ingredients__allergen__in=list(allergy)).prefetch_related('ingredients')
+    dishes_per_page = sum([tariff.dinner, tariff.breakfast, tariff.lunch, tariff.dessert])
+
+    pages = list(chunked(list(dishes), dishes_per_page))
+    print(pages)
     return render(request, template_name='menu.html', context={'pages': pages})
 
 
