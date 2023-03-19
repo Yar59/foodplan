@@ -53,7 +53,10 @@ def order(request):
             dinner=dinner,
             dessert=dessert,
         )
-        return HttpResponseRedirect("/")
+        #print(request.user.id, term)
+        user = User.objects.get(pk=request.user.id)
+        user.tarif = tarif
+        user.save()
     return render(request, template_name='order.html', context={})
 
 
