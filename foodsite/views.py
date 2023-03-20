@@ -77,7 +77,6 @@ def show_menu(request):
     dishes_per_page = sum([tariff.dinner, tariff.breakfast, tariff.lunch, tariff.dessert])
 
     pages = list(chunked(list(dishes), dishes_per_page))
-    print(pages)
     return render(request, template_name='menu.html', context={'pages': pages})
 
 
