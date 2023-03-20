@@ -45,10 +45,12 @@ def order(request):
         dinner = request.POST.get('dinner')
         dessert = request.POST.get('dessert')
         allergy = request.POST.get('allergy')
+        persons = request.POST.get('person')
         tarif = Tarif.objects.create(
             preferred_menu=preferred_menu,
             allergy=allergy.split('|'),
             duration=term.split()[0],
+            persons=persons,
             breakfast=breakfast,
             lunch=lunch,
             dinner=dinner,

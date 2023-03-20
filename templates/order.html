@@ -114,7 +114,7 @@
                         <tr>
                             <th scope="row" class="text-start">Кол-во персон</th>
                             <td>
-                                <select name="select5" class="form-select" id="duration">
+                                <select name="select5" class="form-select" id="person">
                                     <option value="0" selected>1</option>
                                     <option value="1">2</option>
                                     <option value="2">3</option>
@@ -213,9 +213,9 @@
 
 
 	$(document).ready (function () {
-    $("#duration").change (function () {
-        var selectedDuration = $(this).children("option:selected").text();
-         sessionStorage.setItem('duration',selectedDuration)
+    $("#person").change (function () {
+        var selectedPerson = $(this).children("option:selected").text();
+         sessionStorage.setItem('person',selectedPerson)
     });
 });
 
@@ -244,7 +244,7 @@ $(document).ready(function () {
                    dinner: sessionStorage.getItem('dinner'),
                    dessert: sessionStorage.getItem('dessert'),
                    allergy : sessionStorage.getItem('allergy'),
-                   duration : sessionStorage.getItem('duration'),
+                   person : sessionStorage.getItem('person'),
                    csrfmiddlewaretoken: csrf,
 
             },
