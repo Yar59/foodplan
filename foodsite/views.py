@@ -12,7 +12,7 @@ from .models import *
 
 
 def show_main_page(request):
-    dishes = Dish.objects.exclude(image='')[:3]
+    dishes = Dish.objects.exclude(image='')
     return render(request, template_name='index.html', context={'dishes': dishes})
 
 
@@ -77,7 +77,6 @@ def show_menu(request):
     allergy = tariff.allergy
     dishes = Dish.objects.exclude(ingredients__allergen__in=list(allergy)).prefetch_related('ingredients')
     dishes_per_page = sum([tariff.dinner, tariff.breakfast, tariff.lunch, tariff.dessert])
-
     pages = list(chunked(list(dishes), dishes_per_page))
     return render(request, template_name='menu.html', context={'pages': pages})
 
