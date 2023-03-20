@@ -46,9 +46,12 @@ def order(request):
         dessert = request.POST.get('dessert')
         allergy = request.POST.get('allergy')
         persons = request.POST.get('person')
+        allergys = allergy.split('|')
+        if '' in allergys:
+            allergys.remove('')
         tarif = Tarif.objects.create(
             preferred_menu=preferred_menu,
-            allergy=allergy.split('|'),
+            allergy=allergys,
             duration=term.split()[0],
             persons=persons,
             breakfast=breakfast,
