@@ -34,7 +34,7 @@
                         <label for="classic" class="position-relative" style="cursor: pointer;">
                             <img src="{% static 'img/menu_classical.png' %}" alt="" class="w-100">
                             <input form="order" type="radio" name="foodtype" id="classic" value="cl" class="foodplan_selected d-none">
-                            <div class="img_selected"  name="fname" id="img1"></div>
+                            <div class="img_selected" name="fname" id="img1"></div>
                         </label>
                     </div>
                     <div class="col-6 col-md-3">
@@ -263,7 +263,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(response);
-                alert(Вы успешно подписались!);
+                alert('Подписка оформлена');
                 $("form[id=order]").trigger('reset');
                 sessionStorage.clear()
 
