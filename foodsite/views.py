@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from more_itertools import chunked
 
+
 from .forms import *
 from .models import *
 
@@ -38,6 +39,7 @@ def logout_user(request):
 @login_required
 def order(request):
     if request.method == 'POST':
+
         preferred_menu = request.POST.get('menu')
         term = request.POST.get('term')
         breakfast = request.POST.get('breakfast')
@@ -63,6 +65,7 @@ def order(request):
         user.tarif = tarif
         user.save()
         return HttpResponse(f"Подписка оформлена")
+
     return render(request, template_name='order.html', context={})
 
 

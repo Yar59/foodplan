@@ -14,7 +14,8 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'foodsite:index'%}" >
+
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
                 <h3 class="text-secondary mt-2 me-2">Стоимость: 00000₽</h3>
@@ -67,19 +68,23 @@
                         <tr>
                             <th scope="row" class="text-start">Срок</th>
                             <td>
-                                <select class="form-select" id="term">
-                                    <option value="0" selected>1 месяц</option>
-                                    <option value="1">3 месяца</option>
-                                    <option value="2">6 месяцев</option>
-                                    <option value="3">12 месяцев.</option>
+                                <select  class="form-select" id="term" required >
+                                    <option value="">Укажите длительность подписки.</option>
+                                    <option value="0">3 месяца</option>
+                                    <option value="1">6 месяцев</option>
+                                    <option value="2">12 месяцев.</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid state.
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="text-start">Завтраки</th>
                             <td>
-                                <select name="select1" class="form-select" id="breakfast">
-                                    <option value="1" selected>&#10004;</option>
+                                <select name="select1" class="form-select" id="breakfast" required>
+                                    <option selected disabled value="">Выберите</option>
+                                    <option value="1">&#10004;</option>
                                     <option value="0">&#10008;</option>
                                 </select>
                             </td>
@@ -87,8 +92,9 @@
                         <tr>
                             <th scope="row" class="text-start">Обеды</th>
                             <td>
-                                <select name="select2" class="form-select" id="lunch">
-                                    <option value="1" selected>&#10004;</option>
+                                <select name="select2" class="form-select" id="lunch" required>
+                                    <option selected disabled value="">Выберите</option>
+                                    <option value="1">&#10004;</option>
                                     <option value="0">&#10008;</option>
                                 </select>
                             </td>
@@ -96,8 +102,9 @@
                         <tr>
                             <th scope="row" class="text-start">Ужины</th>
                             <td>
-                                <select name="select3" class="form-select" id="dinner">
-                                    <option value="1" selected>&#10004;</option>
+                                <select name="select3" class="form-select" id="dinner" required>
+                                    <option selected disabled value="">Выберите</option>
+                                    <option value="1">&#10004;</option>
                                     <option value="0">&#10008;</option>
                                 </select>
                             </td>
@@ -105,8 +112,9 @@
                         <tr>
                             <th scope="row" class="text-start">Десерты</th>
                             <td>
-                                <select name="select4" class="form-select" id="dessert">
-                                    <option value="1" selected>&#10004;</option>
+                                <select name="select4" class="form-select" id="dessert" required>
+                                    <option selected disabled value="">Выберите</option>
+                                    <option value="1">&#10004;</option>
                                     <option value="0">&#10008;</option>
                                 </select>
                             </td>
@@ -114,13 +122,15 @@
                         <tr>
                             <th scope="row" class="text-start">Кол-во персон</th>
                             <td>
-                                <select name="select5" class="form-select" id="person">
-                                    <option value="0" selected>1</option>
-                                    <option value="1">2</option>
-                                    <option value="2">3</option>
-                                    <option value="3">4</option>
-                                    <option value="4">5</option>
-                                    <option value="5">6</option>
+
+                                <select name="select5" class="form-select" id="person" required>
+                                    <option selected value="">Укажите кол-во персон...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
                                 </select>
                             </td>
                         </tr>
@@ -129,37 +139,37 @@
                             <td>
                                 <div class="form-check d-flex justify-content-start" id="allergy">
                                     <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="fs" name="letter">
-                                    <label class="form-check-label" for="allergy1">
+                                    <label class="form-check-label" for="allergy">
                                         Рыба и морепродукты
                                     </label>
                                 </div>
                                 <div class="form-check d-flex justify-content-start">
                                     <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="mt" name="letter">
-                                    <label class="form-check-label" for="allergy2">
+                                    <label class="form-check-label" for="allergy">
                                         Мясо
                                     </label>
                                 </div>
                                                                 <div class="form-check d-flex justify-content-start">
                                     <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="cl" name="allergy">
-                                    <label class="form-check-label" for="allergy3">
+                                    <label class="form-check-label" for="allergy">
                                         Зерновые
                                     </label>
                                 </div>
                                 <div class="form-check d-flex justify-content-start">
                                     <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="hn" name="allergy">
-                                    <label class="form-check-label" for="allergy3">
+                                    <label class="form-check-label" for="allergy">
                                         Продукты пчеловодства
                                     </label>
                                 </div>
                                 <div class="form-check d-flex justify-content-start">
                                     <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="nt" name="allergy">
-                                    <label class="form-check-label" for="allergy3">
+                                    <label class="form-check-label" for="allergy">
                                         Орехи и бобовые
                                     </label>
                                 </div>
                                 <div class="form-check d-flex justify-content-start">
                                     <input class="form-check-input me-1 foodplan_checked-green" type="checkbox" value="mk" name="allergy">
-                                    <label class="form-check-label" for="allergy3">
+                                    <label class="form-check-label" for="allergy">
                                         Молочные продукты
                                     </label>
                                 </div>
@@ -167,16 +177,19 @@
                         </tr>
                     </tbody>
                 </table>
-                <button type="submit" id="TableSubmit" class="d-none"></button>
+
+                    <button type="submit" id="TableSubmit" class="d-none"></button>
+                    <form class="card d-flex flex-row align-items-baseline mb-5 p-3 foodplan__bg_grey">
+                        <label for="password" class="form-label me-2">Промокод</label>
+                        <input type="password" class="form-control me-2" id="password">
+                        <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Применить</button>
+                      <div class="d-flex justify-content-center my-5 test">
+                            <button type="submit"  id="SendOrder" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green w-50">Оплатить</button>
+                        </div>
+                    </form>
+
                 </form>
-                <form class="card d-flex flex-row align-items-baseline mb-5 p-3 foodplan__bg_grey">
-                    <label for="exampleInputPassword1" class="form-label me-2">Промокод</label>
-                    <input type="password" class="form-control me-2" id="password">
-                    <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Применить</button>
-                </form>
-                <div class="d-flex justify-content-center my-5 test">
-                    <button onclick="location.href = '/'" name="orders" type="submit"  class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green w-50">Оплатить</button>
-                </div>
+
             </div>
         </section>
     </main>
@@ -232,7 +245,7 @@
     });
 
 $(document).ready(function () {
-    $("button[name=orders]").click(function (event) {
+    $("#SendOrder").click(function (event) {
     	let csrf = document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
                $.ajax({
             url: "{% url 'foodsite:order' %}",
@@ -250,11 +263,18 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(response);
-                alert(response);
+                alert('Подписка оформлена');
+                $("form[id=order]").trigger('reset');
+                sessionStorage.clear()
 
-
-
+            },
+            error: function(data){
+                alert("Что то пошло не так, попробуйте еще раз.");
+                $("form[id=order]").trigger('reset');
+                sessionStorage.clear()
             }
+
+
         }); // end ajax
     });
 

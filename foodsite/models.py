@@ -62,7 +62,7 @@ class Ingredients(models.Model):
 class Tarif(models.Model):
     preferred_menu = models.CharField('Предпочитаемое меню',
                                       max_length=2, choices=MENU,
-                                      default='cl')
+                                      )
     allergy = MultiSelectField('Алергия на:',
                                max_length=12, choices=ALLERGEN,
                                blank=True)
@@ -70,12 +70,12 @@ class Tarif(models.Model):
                ('6', '6 месяцев'), ('12', '12 месяцев')]
     duration = models.CharField('Длительность подписки',
                                       max_length=2, choices=TERM,
-                                      default='1')
-    persons = models.PositiveIntegerField('Количество персон', default=1)
-    breakfast = models.BooleanField('Включен ли завтрак?', default=True)
-    lunch = models.BooleanField('Включен ли обед?', default=True)
-    dinner = models.BooleanField('Включен ли ужин?', default=True)
-    dessert = models.BooleanField('Включен ли десерт?', default=True)
+                                      )
+    persons = models.PositiveIntegerField('Количество персон')
+    breakfast = models.BooleanField('Включен ли завтрак?')
+    lunch = models.BooleanField('Включен ли обед?')
+    dinner = models.BooleanField('Включен ли ужин?')
+    dessert = models.BooleanField('Включен ли десерт?')
 
     class Meta:
         verbose_name = "Тариф"
