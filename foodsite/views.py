@@ -39,7 +39,6 @@ def logout_user(request):
 @login_required
 def order(request):
     if request.method == 'POST':
-
         preferred_menu = request.POST.get('menu')
         term = request.POST.get('term')
         breakfast = request.POST.get('breakfast')
